@@ -1,0 +1,23 @@
+version: "1.0"
+
+services:
+  fizz-buzz-api-dev:
+    build:
+      context: .
+      dockerfile: build/package/Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.dev
+    depends_on:
+      - fizzbuzzDB-dev
+
+  fizzbuzzDB-dev:
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_DB: docker
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+    ports:
+      - "5432:5432" 

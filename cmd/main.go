@@ -9,14 +9,15 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//Router Setup
 func handleRequests() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/fizz-buzz", controllers.GetFizzBuzz).Methods("GET")
-	//router.HandleFunc("/all", returnAllArticles)
+	router.HandleFunc("/statistics", controllers.GetApiStatistics).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func main() {
-	fmt.Println("Rest API v2.0 - Mux Routers")
+	fmt.Println("Fizz-buzz API v1.0")
 	handleRequests()
 }
