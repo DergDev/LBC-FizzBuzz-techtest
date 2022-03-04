@@ -12,8 +12,8 @@ import (
 //Router Setup
 func handleRequests() {
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/fizz-buzz", controllers.GetFizzBuzz).Methods("GET")
-	router.HandleFunc("/statistics", controllers.GetApiStatistics).Methods("GET")
+	router.HandleFunc("/fb-api/fizz-buzz", controllers.GetFizzBuzz).Methods("GET")
+	router.HandleFunc("/fb-api/statistics", controllers.GetApiStatistics).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
