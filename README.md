@@ -29,8 +29,6 @@ Prompt:
 
 To run this project you will need:
 - docker :  https://www.docker.com/
-- postgre : https://www.postgresql.org/
-
 ------------------------------------------------------------------------------------
 
 To test This project you can use this postman collection:
@@ -40,11 +38,26 @@ To test This project you can use this postman collection:
 ------------------------------------------------------------------------------------
 
 To run the project :
-Start docker on your workspace
+Start the dev docker environment on your workspace
   
   Use the docker command: 
-  ```docker-compose --file docker-compose.dev.yml up --detach --build  --remove-orphans  --force-recreate```
+  ```docker-compose --file docker-compose.dev.yml up```
 
-Run the different postman commands to test the exposed endpoints
+Then run the different postman commands to test the exposed endpoints
+
+Once you're done use the command:
+``` docker-compose -f docker-compose.dev.yml stop ```
+
+OR
+
+Use the make command to start the dev / prod environmement: 
+  ```make dev``` | ```make prod```
   
+Then run the different postman commands to test the exposed endpoints
+  
+Finally use the make command to stop the dev / prod environmement: 
+  ```make stop_dev``` | ```make stop_prod```
+
 ------------------------------------------------------------------------------------
+
+Thanks for your time!
