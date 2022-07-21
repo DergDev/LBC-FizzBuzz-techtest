@@ -33,7 +33,7 @@ To run this project you will need:
 
 To test This project you can use this postman collection:
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/590a6972e93605ad1f71?action=collection%2Fimport)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/587033dd476bdfa406bf)
 
 ------------------------------------------------------------------------------------
 
