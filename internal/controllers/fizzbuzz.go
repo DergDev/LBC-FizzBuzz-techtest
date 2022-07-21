@@ -9,47 +9,34 @@ import (
 	"techtest/pkg/fizzbuzz_core"
 )
 
+const stringErrorMessage = "One of the string parameter was missing or empty, please check your query."
+const intErrorMessage = "One of the numerical parameter was below or equal to 0, please check your query."
+const parameterErrorMessage = "Something went wrong while getting your numerical parameters, please check your query, you might have assigned a wrong type to an int."
+
 //Sanity check and Error handling before Fizz-Buzz compution
 func GetFizzBuzz(w http.ResponseWriter, r *http.Request) {
 	vars := r.URL.Query()
-	int1, err := strconv.Atoi(vars.Get("int1"))
-	if err != nil {
-		http.Error(w, "int1 query parameter has an invalid syntax.", http.StatusBadRequest)
-		return
-	} else if int1 <= 0 {
-		http.Error(w, "int1 can't be less or equal to 0.", http.StatusBadRequest)
-		return
-	}
-	int2, err := strconv.Atoi(vars.Get("int2"))
-	if err != nil {
-		http.Error(w, "int2 query parameter has an invalid syntax.", http.StatusBadRequest)
-		return
-	} else if int2 <= 0 {
-		http.Error(w, "int2 can't be less or equal to 0.", http.StatusBadRequest)
-		return
-	}
-	limit, err := strconv.Atoi(vars.Get("limit"))
-	if err != nil {
-		http.Error(w, "limit query parameter has an invalid syntax.", http.StatusBadRequest)
-		return
-	} else if limit <= 0 {
-		http.Error(w, "limit can't be less or equal to 0.", http.StatusBadRequest)
-		return
-	}
+	int1, errInt1 := strconv.Atoi(vars.Get("int1"))
+	int2, errInt2 := strconv.Atoi(vars.Get("int2"))
+	limit, errLimit := strconv.Atoi(vars.Get("limit"))
 	str1 := vars.Get("str1")
-	if str1 == "" {
-		http.Error(w, "str1 query parameter is missing or empty.", http.StatusBadRequest)
+	str2 := vars.Get("str2")
+	if errInt1 != nil || errInt2 != nil || errLimit != nil {
+		http.Error(w, parameterErrorMessage, http.StatusBadRequest)
 		return
 	}
-	str2 := vars.Get("str2")
-	if str2 == "" {
-		http.Error(w, "str2 query parameter is missing or empty.", http.StatusBadRequest)
+	if int1 <= 0 || int2 <= 0 || limit <= 0 {
+		http.Error(w, intErrorMessage, http.StatusBadRequest)
+		return
+	}
+	if str1 == "" || str2 == "" {
+		http.Error(w, stringErrorMessage, http.StatusBadRequest)
 		return
 	}
 
 	repository.AddQueryEntryToDB(r.URL.RawQuery)
 	var response models.Fizzbuzz
-	response.Content = fizzbuzz_core.ComputeFizzBuzz(uint8(int1), uint8(int2), uint8(limit), str1, str2)
+	response.Content = fizzbuzz_core.ComputeFizzBuzz(int1, int2, limit, str1, str2)
 
 	json.NewEncoder(w).Encode(response)
 }

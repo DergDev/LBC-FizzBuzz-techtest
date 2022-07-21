@@ -1,12 +1,14 @@
 package fizzbuzz_core
 
-import "strconv"
+import (
+	"strconv"
+)
 
 //Fizz Buzz Core Logic
-func ComputeFizzBuzz(int1 uint8, int2 uint8, limit uint8, str1 string, str2 string) []string {
+func ComputeFizzBuzz(int1 int, int2 int, limit int, str1 string, str2 string) []string {
 
 	fizzBuzz := []string{}
-	for i := uint8(1); i <= limit; i++ {
+	for i := int(1); i <= limit; i++ {
 		current := ""
 		if i%int1 == 0 {
 			current = str1
@@ -15,7 +17,7 @@ func ComputeFizzBuzz(int1 uint8, int2 uint8, limit uint8, str1 string, str2 stri
 			current += str2
 		}
 		if len(current) == 0 {
-			current = strconv.Itoa(int(i))
+			current = strconv.Itoa(i)
 		}
 		fizzBuzz = append(fizzBuzz, current)
 	}

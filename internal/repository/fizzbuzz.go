@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"fmt"
 	"techtest/internal/configs"
 	"techtest/internal/models"
 )
@@ -13,11 +12,9 @@ func AddQueryEntryToDB(url string) {
 	var statistic models.Statistics
 	db.Where("path = ?", url).Find(&statistic)
 	if statistic.Path == "" {
-		fmt.Println("Statistic created : " + url)
 		db.Create(&models.Statistics{Path: url, Count: 1})
 	} else {
 		statistic.Count = statistic.Count + 1
-		fmt.Println("Statistic updated : " + url + "count: " + fmt.Sprint(statistic.Count))
 		db.Save(&statistic)
 	}
 }
